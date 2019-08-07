@@ -78,7 +78,7 @@ if __name__ == '__main__':
     new_res = cv2.medianBlur(img, 3)
     cv2.imwrite('results//res_opencv.jpg', new_res)
     
-    test = res - new_res
+    test =  new_res -res 
     cv2.imwrite('results//test.jpg', test)
 
     
