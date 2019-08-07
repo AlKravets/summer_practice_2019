@@ -52,24 +52,33 @@ def find_median (window : np.ndarray):
 
 
 def median_blur(img: np.ndarray, k: int)->  np.ndarray:
+    
+
     new_img = photo_extension(img,k)
-    res = img
+    
+    res = np.copy(img)
     for i in range(img.shape[0]):
         for j in range(img.shape[1]):
         
             n_i = i+ k//2
             n_j = j+k//2
-            res[i][j] = find_median(new_img[n_i-k//2:n_i+k//2+1, n_j-k//2:n_j+k//2+1])             
+            res[i][j] = find_median(new_img[n_i-k//2:n_i+k//2+1, n_j-k//2:n_j+k//2+1])
+
+            
         print(i)
+    
     return res
 
 if __name__ == '__main__':
-    img = cv2.imread('test_rgb.jpg')
-    res = median_blur(img, 21)
+    img = cv2.imread('1_1.bmp')
+    
+    res = median_blur(img, 3)
     cv2.imwrite('results//res1.jpg', res)
 
-    new_res = cv2.medianBlur(img, 21)
+    new_res = cv2.medianBlur(img, 3)
     cv2.imwrite('results//res_opencv.jpg', new_res)
-
+    
     test = res - new_res
     cv2.imwrite('results//test.jpg', test)
+
+    
