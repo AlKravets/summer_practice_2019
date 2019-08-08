@@ -40,6 +40,12 @@ def photo_extension(img: np.ndarray, ksize: list) -> np.ndarray:
     return new_img
 
 
+def okruglenie (i: float):
+    '''if i% 1 < 0.5:
+        return math.floor(i)
+    else: return math.ceil(i) '''
+    return round(i)
+
 def create_mask (window : np.ndarray, sigma: float):
     mask = np.zeros((window.shape[0], window.shape[1]))
     for i in range(window.shape[0]):
@@ -60,7 +66,7 @@ def new_pixel_intensity (window : np.ndarray, sigma: float, mask):
                 new_pixel += mask[i][j]*window[i][j]
                 
         #print(new_pixel)
-        return round(new_pixel)
+        return okruglenie(new_pixel)
     else:
         res = []
         #print(window)
@@ -95,11 +101,11 @@ def gaussian_blur(img: np.ndarray, ksize: list, sigma: float = 0)->  np.ndarray:
 if __name__ == '__main__':
     img = cv2.imread('1_1.bmp',0)
     
-    res = gaussian_blur(img, (5,5), 2)
+    res = gaussian_blur(img, (3,3), 1)
     #res = photo_extension(img, (11,11))
     cv2.imwrite('results//res1.jpg', res)
 
-    new_res = cv2.GaussianBlur(img, (5,5), 2)
+    new_res = cv2.GaussianBlur(img, (3,3), 1)
     cv2.imwrite('results//res_opencv.jpg', new_res)
 
     test1 =( res - new_res)
@@ -109,5 +115,6 @@ if __name__ == '__main__':
     print(img[0:4,0:4])
     print(res[0:5,0:5])
     print(new_res[0:5,0:5])
+    print(test1[0:7,0:7])
 
     
