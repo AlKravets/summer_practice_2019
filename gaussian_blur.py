@@ -116,5 +116,3 @@ if __name__ == '__main__':
     print(res[0:5,0:5])
     print(new_res[0:5,0:5])
     print(test1[0:7,0:7])
-
-    

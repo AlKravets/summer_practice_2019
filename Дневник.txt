@@ -1,0 +1,24 @@
+7.08.2019
+
+Изучил алоритм Медианного фильтра
+Реализовал его на python
+Сравнил результат с библиотечной функцией(opencv)
+
+https://ru.wikipedia.org/wiki/%D0%9C%D0%B5%D0%B4%D0%B8%D0%B0%D0%BD%D0%BD%D1%8B%D0%B9_%D1%84%D0%B8%D0%BB%D1%8C%D1%82%D1%80
+https://habr.com/ru/post/114551/
+https://habr.com/ru/post/142818/
+https://docs.opencv.org/3.1.0/d4/d13/tutorial_py_filtering.html
+
+8.08.2019
+
+изучил алгоритм Gaussian blur
+реализоапл 1 медленную версию. Есть отличия от библиотечной функции.
+https://habr.com/ru/post/151157/
+https://en.wikipedia.org/wiki/Gaussian_filter
+https://uk.wikipedia.org/wiki/%D0%A0%D0%BE%D0%B7%D0%BC%D0%B8%D0%B2%D0%B0%D0%BD%D0%BD%D1%8F_%D0%93%D0%B0%D1%83%D1%81%D0%B0
+https://en.wikipedia.org/wiki/Gaussian_blur
+https://docs.opencv.org/3.1.0/d4/d13/tutorial_py_filtering.html
+
+
+9 - 10 .08.2019
+Читал алгоритмы, искал более оптимальное решение Gaussian Blur 
