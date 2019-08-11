@@ -3,7 +3,6 @@ import numpy as np
 import os
 import math
 
-
 # Расширим фото на размер половины окна. заполним новые ячейки значением крайних пикселей
 
 def photo_extension(img: np.ndarray, ksize: list) -> np.ndarray:
@@ -46,67 +45,69 @@ def okruglenie (i: float):
     else: return math.ceil(i) '''
     return round(i)
 
-def create_mask (window : np.ndarray, sigma: float):
-    mask = np.zeros((window.shape[0], window.shape[1]))
-    for i in range(window.shape[0]):
-        for j in range(window.shape[1]):
-            mask[i][j] = math.exp(-((i-window.shape[0]//2)**2 + (j-window.shape[1]//2)**2)/ (2*sigma**2)) / (2*sigma**2 * math.pi)
+def create_mask(X: int, sigma: float):
+    mask = np.zeros(X)
+    for i in range(X):
+          mask[i] = math.exp(-((i-X//2)**2) / (2*sigma**2 * math.pi))
     mask = mask/ np.sum(mask)
     return mask
 
-
 # поиск медианы на полученном окне со стороной k
-def new_pixel_intensity (window : np.ndarray, sigma: float, mask):
-    if len(window.shape) ==2:
-        new_pixel = 0
-        #mask = np.zeros((window.shape[0], window.shape[1]))
-        for i in range(window.shape[0]):
-            for j in range(window.shape[1]):
-                #mask[i][j] = math.exp(-((i-window.shape[0]//2)**2 + (j-window.shape[1]//2)**2)/ (2*sigma**2)) / (2*sigma**2 * math.pi)
-                new_pixel += mask[i][j]*window[i][j]
-                
-        #print(new_pixel)
-        return okruglenie(new_pixel)
-    else:
-        res = []
-        #print(window)
-        for i in range(window.shape[2]):
-            res.append(int(np.median(window[::,::,i])))
-        return res
+def new_pixel_intensity (window : np.ndarray, mask: np.ndarray):
+    new_pixel = 0
+    for i in range(window.shape[0]):
+        new_pixel += mask[i]*window[i]
+    return round(new_pixel)
 
 
-def gaussian_blur(img: np.ndarray, ksize: list, sigma: float = 0)->  np.ndarray:
 
-    if sigma == 0:
-        sigma = ksize[0]
+def quick_gaussian_blur (img: np.ndarray, ksize: list, sigma_x: float = 0,sigma_y: float = 0)->  np.ndarray:
+    if sigma_y == 0 :
+        sigma_y == sigma_x
+
     new_img = photo_extension(img,ksize)
     
-    mask = create_mask(new_img[0:ksize[0],0:ksize[1]], sigma)
+    mask_x = create_mask(ksize[0], sigma_x)
+    mask_y = create_mask(ksize[1], sigma_y)
 
-    print(mask)
+    print(mask_x)
+    print('sssssssssss')
+    print(mask_y)
+
 
     res = np.copy(img)
+    
     for i in range(img.shape[0]):
         for j in range(img.shape[1]):
         
             n_i = i+ ksize[0]//2
             n_j = j+ksize[1]//2
-            res[i][j] = new_pixel_intensity(new_img[n_i-ksize[0]//2:n_i+ksize[0]//2+1, n_j-ksize[1]//2:n_j+ksize[1]//2+1], sigma, mask)
-
+            res[i][j] = new_pixel_intensity(new_img[n_i-ksize[0]//2:n_i+ksize[0]//2+1, n_j],mask_x)
+    
+    for i in range(img.shape[0]):
+        for j in range(img.shape[1]):
+        
+            n_i = i+ ksize[0]//2
+            n_j = j+ksize[1]//2
+            res[i][j] = new_pixel_intensity(new_img[n_i, n_j-ksize[1]//2:n_j+ksize[1]//2+1], mask_y)
             
-        print(i)
+    
     
     return res
+
+
 
 if __name__ == '__main__':
     img = cv2.imread('1_1.bmp',0)
     
-    res = gaussian_blur(img, (11,11), 2)
+    res = quick_gaussian_blur(img, (3,3), 1,1)
     #res = photo_extension(img, (11,11))
     cv2.imwrite('results//res1.jpg', res)
 
-    new_res = cv2.GaussianBlur(img, (11,11), 2)
+    new_res = cv2.GaussianBlur(img, (3,3), 1,1)
     cv2.imwrite('results//res_opencv.jpg', new_res)
+
+
     new_img = np.zeros((img.shape[0],img.shape[1], 3), dtype = np.int64)
 
     for i in range(img.shape[0]):
