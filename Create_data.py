@@ -17,15 +17,16 @@ def create_first_data(size_class,number_of_classes):
     return data
 
 
-def showData (nClasses, nItemsInClass):
-    trainData      = create_first_data (nItemsInClass, nClasses)
+def showData (trainData):
+    #trainData      = create_first_data (nItemsInClass, nClasses)
     classColormap  = ListedColormap(['#FF0000', '#00FF00', '#000000'])
     pl.scatter([trainData[i][0][0] for i in range(len(trainData))],
                [trainData[i][0][1] for i in range(len(trainData))],
                c=[trainData[i][1] for i in range(len(trainData))],
                cmap=classColormap)
-    pl.show()   
+    pl.show()
 
 
 if __name__ == '__main__':
-    showData (3, 40)
+    data = create_first_data(40,3)
+    showData (data)
