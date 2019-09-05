@@ -76,24 +76,24 @@ def print_elipse (P,G,c):
     B = G[1][0]  + G[0][1]
     C = G[1][1]
     D = -2*G[0][0]*c[0] - G[1][0]*c[1] - G[0][1]*c[1]
-    E = -G[1][0]*c[0] - G[0][1]*c[1] -2*G[1][1]*c[1]
-    F = G[0][0]*c[0]**2 +G[1][0]*c[0]*c[1] + G[0][1]*c[0]*c[1] + G[1][1]*c[1]**2
+    E = -G[1][0]*c[0] - G[0][1]*c[0] -2*G[1][1]*c[1]
+    F = G[0][0]*c[0]**2 +G[1][0]*c[0]*c[1] + G[0][1]*c[0]*c[1] + G[1][1]*c[1]**2 -1
 
-    x = np.linspace(np.min(P[0])-1, np.max(P[0])+1, 100)
-    y = np.linspace(np.min(P[1])-1, np.max(P[1])+1, 100)
+    x = np.linspace(np.min(P[0])-1, np.max(P[0])+1, 1000)
+    y = np.linspace(np.min(P[1])-1, np.max(P[1])+1, 1000)
 
-    for i in range(100):
-        for j in range(100):
-            test = np.array([x[i],y[j]])
-            if 0< np.dot(np.dot((test - c), G), (test - c)) <= 1:
-                plt.scatter(x[i],y[j], s = 2, c = 'black')
+    # for i in range(100):
+    #     for j in range(100):
+    #         test = np.array([x[i],y[j]])
+    #         if 0< np.dot(np.dot((test - c), G), (test - c)) <= 1:
+    #             plt.scatter(x[i],y[j], s = 2, c = 'black')
 
     for i in range(P.shape[1]):
         plt.scatter(P[0][i], P[1][i])
     
     
     x,y= np.meshgrid(x,y)
-'''
+
     L = A*x**2 + B*x*y + C*y**2 + D*x + E*y + F
 
     test = np.array([P[0][0], P[1][0]])
@@ -103,8 +103,8 @@ def print_elipse (P,G,c):
     print(A*test[0]**2+ B*test[0]*test[1] + C*test[1]**2+ D*test[0] + E*test[1] + F)
 
     
-    #plt.contour(x,y,L,[0])
-'''
+    plt.contour(x,y,L,[0])
+
     plt.xlim([np.min(P[0])-1, np.max(P[0])+1])
     plt.ylim([np.min(P[1])-1, np.max(P[1])+1])
 
@@ -114,7 +114,7 @@ def print_elipse (P,G,c):
 
 
 if __name__ == '__main__':
-    P = np.array([[1,1,2,3,0],[1,2,2,4,0]])
+    P = np.array([[1,1,2,3],[1,2,2,4]])
     print(P.shape)
     print(P)
     A, c = khaciyan_algorithm(P, 10**-5)
