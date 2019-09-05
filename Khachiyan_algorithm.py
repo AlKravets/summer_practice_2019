@@ -98,7 +98,7 @@ def print_elipse (P,G,c):
 
     test = np.array([P[0][0], P[1][0]])
     #test = np.array([1.9, 3.135])
-    #test = np.array([0,3])
+    test = np.array([0,3])
     print(np.dot(np.dot((test - c), G), (test - c)))
     print(A*test[0]**2+ B*test[0]*test[1] + C*test[1]**2+ D*test[0] + E*test[1] + F)
 
@@ -114,7 +114,7 @@ def print_elipse (P,G,c):
 
 
 if __name__ == '__main__':
-    P = np.array([[1,1,2,3],[1,2,2,4]])
+    P = np.array([[1,1,2,3,0],[1,2,2,4,0]])
     print(P.shape)
     print(P)
     A, c = khaciyan_algorithm(P, 10**-5)
