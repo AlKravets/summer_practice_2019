@@ -30,7 +30,8 @@ def number_of_errors (test_lables):
     return er
 
 if __name__ == '__main__':
-    data = Create_data.create_first_data(40,3)
+    #data = Create_data.create_first_data(40,3)
+    data = Create_data.iris_data()
     test_data, train_data = divide_data.divide_data(data, 0.8)
     #Create_data.showData(data)
     lable = KNN(test_data, train_data, 5, 3)

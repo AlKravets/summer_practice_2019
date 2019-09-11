@@ -4,6 +4,8 @@ import os
 import pylab as pl
 from matplotlib.colors import ListedColormap
 import random
+import urllib
+import csv
 
 
 def create_first_data(size_class,number_of_classes):
@@ -27,6 +29,40 @@ def showData (trainData):
     pl.show()
 
 
+def iris_data():
+    l = []
+
+    with open('iris.data','r') as f:
+        for line in f:
+            l1 = []
+            for word1 in line.split():
+                for word in word1.split(','):
+                    l1.append(word)
+            l.append(l1)
+    
+
+    #print(len(l))
+    data = []
+    for i in range(len(l)):
+        l[i][0] = float(l[i][0])
+        l[i][1] = float(l[i][1])
+        l[i][2] = float(l[i][2])
+        l[i][3] = float(l[i][3])
+        if l[i][4] == "Iris-setosa":
+            l[i][4] = 0
+        elif l[i][4] == "Iris-versicolor":
+            l[i][4] = 1
+        elif l[i][4] == "Iris-virginica":
+            l[i][4] = 2
+        else:
+            print("error")
+        data.append([[l[i][0],l[i][1],l[i][2],l[i][3]], l[i][4]])
+    return data
+
 if __name__ == '__main__':
-    data = create_first_data(40,3)
-    showData (data)
+    #data = create_first_data(40,3)
+    #showData (data)
+    
+    data = iris_data()
+    
+    

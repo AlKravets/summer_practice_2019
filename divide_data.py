@@ -14,7 +14,8 @@ def divide_data(data, persent):
 
 if __name__ == '__main__':
     import Create_data
-    data = Create_data.create_first_data(40,3)
+    #data = Create_data.create_first_data(40,3)
+    data = Create_data.iris_data()
     test_data, train_data = divide_data(data, 0.8)
     print(len(test_data), '  ', test_data[1])
     print(train_data)

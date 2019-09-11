@@ -149,6 +149,8 @@ def new_gaussian_blur(img: np.ndarray, ksize: list, sigma_x: float = 1,sigma_y: 
             res[i][j] = new_pixel_intensity(new_img[n_i-ksize[0]//2:n_i+ksize[0]//2+1, n_j ], mask_x, flag)
             
     
+    new_img = photo_extension(res,ksize)
+
     for i in range(img.shape[0]):
         for j in range(img.shape[1]):
         
@@ -216,7 +218,7 @@ def mask_pixel_1d (x:int, sigma_x: float, step:int = 1000):
 
 
 if __name__ == '__main__':
-    img = cv2.imread('1_1.bmp')
+    img = cv2.imread('1_1.bmp',0)
     
     res = new_gaussian_blur(img, (5,5), 1)
     #res = photo_extension(img, (11,11))
